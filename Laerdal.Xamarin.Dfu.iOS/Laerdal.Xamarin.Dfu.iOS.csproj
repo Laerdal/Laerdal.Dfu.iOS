@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- NUGET SHARED BASE -->
+    <PropertyGroup>
+        <Configuration>Release</Configuration>
+        <Configurations>Release</Configurations>
+        <Platform>AnyCPU</Platform>
+        <Platforms>AnyCPU</Platforms>
+
+        <NeutralLanguage>en</NeutralLanguage>
+        <LangVersion>8</LangVersion>
+        <DebugSymbols>true</DebugSymbols>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <PackOnBuild>true</PackOnBuild>
+
+        <Authors>François Raminosona, Laerdal</Authors>
+        <Copyright>François Raminosona, Laerdal</Copyright>
+        <Owners>François Raminosona, Laerdal</Owners>
+
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <IncludeSource>True</IncludeSource>
+        <IncludeSymbols>True</IncludeSymbols>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <!-- sourcelink: Include PDB in the built .nupkg -->
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <!-- see : https://cezarypiatek.github.io/post/managing-output-in-sdk-projects/ -->
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <!-- sourcelink: Embed source files that are not tracked by the source control manager to the PDB -->
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <!-- NUGET IOS BASE -->
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+        <DebugType>full</DebugType>
+        <ConsolePause>false</ConsolePause>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Properties\AssemblyInfo.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="System"/>
+        <Reference Include="Xamarin.iOS"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.8.0" PrivateAssets="all" />
+    </ItemGroup>
+
+    <!-- NUGET PROJECT SPECIFIC -->
+    <PropertyGroup>
+        <ProjectGuid>{9DA0DC50-8299-4E3C-913D-333B5150B03B}</ProjectGuid>
+        <ProjectTypeGuids>{8FFB629D-F513-41CE-95D2-7ECE97B6EEEC};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <PackageVersion>4.8.0</PackageVersion>
+
+        <AssemblyName>Laerdal.Xamarin.Dfu.iOS</AssemblyName>
+        <RootNamespace>Laerdal.Xamarin.Dfu.iOS</RootNamespace>
+        <PackageId>Laerdal.Xamarin.Dfu.iOS</PackageId>
+        <Summary>Xamarin Nordic Dfu iOS</Summary>
+        <Title>Laerdal.Xamarin.Dfu.iOS</Title>
+        <Description>Xamarin wrapper around Nordic.Dfu for iOS</Description>
+        <PackageOutputPath Condition=" '$(PackageOutputPath)' == '' ">../$(AssemblyName).Output</PackageOutputPath>
+    </PropertyGroup>
+    <ItemGroup>
+        <NativeReference Include="Frameworks\*.framework">
+            <Kind>Framework</Kind>
+            <Frameworks>Foundation</Frameworks>
+        </NativeReference>
+        <None Include="Sharpie_Generated\*.cs"/>
+        <ObjcBindingApiDefinition Include="ApiDefinition.cs"/>
+        <ObjcBindingCoreSource Include="Structs.cs"/>
+    </ItemGroup>
+
+    <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets"/>
+</Project>
