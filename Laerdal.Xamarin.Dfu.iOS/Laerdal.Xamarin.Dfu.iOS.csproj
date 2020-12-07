@@ -33,6 +33,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageIcon>icon.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageVersion Condition=" '$(PackageVersion)' == '' ">1.0.0</PackageVersion>
     </PropertyGroup>
     <ItemGroup>
         <None Include="../icon.png" Pack="true" PackagePath="\"/>
@@ -73,7 +74,7 @@
         <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS.git</RepositoryUrl> 
         <RepositoryType>git</RepositoryType> 
-        <PackageVersion Condition=" '$(PackageVersion)' == '' ">4.8.0</PackageVersion>
+
         <PackageOutputPath Condition=" '$(PackageOutputPath)' == '' ">../$(AssemblyName).Output</PackageOutputPath>
     </PropertyGroup>
     <ItemGroup>
@@ -86,6 +87,24 @@
         <ObjcBindingCoreSource Include="Structs.cs"/>
         <PackageReference Include="Xamarin.iOS.SwiftRuntimeSupport" Version="0.2.0" />
     </ItemGroup>
+
+    <!-- GitVersion -->
+    <PropertyGroup>
+        <GitVersionConfig>../GitVersion.yml</GitVersionConfig>
+        <UpdateAssemblyInfo>true</UpdateAssemblyInfo>
+        <RepositoryBranchName>$(GitVersion_BranchName)</RepositoryBranchName> 
+        <RepositoryCommit>$(GitVersion_Sha)</RepositoryCommit> 
+        <UseFullSemVerForNuGet>true</UseFullSemVerForNuGet>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="GitVersionTask" Version="5.5.1" PrivateAssets="all" />
+    </ItemGroup>
+    <Target Name="PrintInfo" AfterTargets="GetVersion">
+        <Message Importance="High" Text="GitVersion_InformationalVersion: $(GitVersion_InformationalVersion)" />
+        <Message Importance="High" Text="Version: $(Version)" />
+        <Message Importance="High" Text="PackageVersion: $(PackageVersion)" />
+        <Message Importance="High" Text="AssemblySemVer: $(GitVersion_AssemblySemVer)" />
+    </Target>
 
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets"/>
 </Project>

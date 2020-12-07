@@ -7,11 +7,15 @@ lib_fat=$(xbuild_output)/iOSDFULibrary.framework/iOSDFULibrary
 lib_iphoneos=$(ios_native_folder)/Example/build/Release-iphoneos/iOSDFULibrary-iOS/iOSDFULibrary.framework/iOSDFULibrary
 lib_iphonesimulator=$(ios_native_folder)/Example/build/Release-iphonesimulator/iOSDFULibrary-iOS/iOSDFULibrary.framework/iOSDFULibrary
 
-version=1.0.0
+sharpie_output=Laerdal.Xamarin.Dfu.iOS/Sharpie_Generated
+sharpie_output_file=$(sharpie_output)/iOSDFULibrary-SwiftApiDefinitions.cs
+sharpie_namespace=Laerdal.Xamarin.Dfu.iOS
+sharpie_header_filename=iOSDFULibrary-Swift
+sharpie_header_folder=Laerdal.Xamarin.Dfu.iOS/Frameworks/iOSDFULibrary.framework/Headers
+
 output=Laerdal.Xamarin.Dfu.iOS.Output
 
 all: $(output)
-
 
 $(ios_native_folder)/Example/build/Release-iphoneos/:
 	# Building for SDK iphoneos
@@ -31,13 +35,19 @@ $(xbuild_output)/: $(ios_native_folder)/Example/build/Release-iphoneos/ $(ios_na
 	rm -rf $(lib_fat)
 	lipo -create -output $(lib_fat) $(lib_iphoneos) $(lib_iphonesimulator)
 
-$(output): $(xbuild_output)
+$(sharpie_output_file): $(xbuild_output)
+	# Regenerate the sharpie
+	mkdir -p $(sharpie_output)
+	sharpie bind -n $(sharpie_namespace) -p $(sharpie_header_filename) -sdk iphoneos -o $(sharpie_output) -scope $(sharpie_header_folder)/ $(sharpie_header_folder)/$(sharpie_header_filename).h
+
+$(output): $(xbuild_output) $(sharpie_output_file)
 	# Building nuget
-	MSBuild Laerdal.Xamarin.Dfu.iOS/*.csproj -t:Rebuild -restore:True -p:Configuration=Release -p:PackageVersion=$(version) -p:PackageOutputPath=../$(output)
+	MSBuild Laerdal.Xamarin.Dfu.iOS/*.csproj -t:Rebuild -restore:True -p:Configuration=Release -p:PackageOutputPath=../$(output)
 
 clean:
 	rm -rf $(output)
 	rm -rf $(xbuild_output)
+	rm -rf $(sharpie_output)
 	$(xbuild) ONLY_ACTIVE_ARCH=NO -project $(ios_native_folder)/_Pods.xcodeproj clean
 	# Cleaning MSBuild output
 	MSBuild Laerdal.Xamarin.Dfu.iOS/*.csproj -t:clean
