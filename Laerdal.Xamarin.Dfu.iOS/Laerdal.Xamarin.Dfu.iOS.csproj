@@ -31,7 +31,13 @@
         <!-- sourcelink: Embed source files that are not tracked by the source control manager to the PDB -->
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
     </PropertyGroup>
+    <ItemGroup>
+        <None Include="../icon.png" Pack="true" PackagePath="\"/>
+        <None Include="../LICENSE" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
     <!-- NUGET IOS BASE -->
     <PropertyGroup>
@@ -56,7 +62,6 @@
     <PropertyGroup>
         <ProjectGuid>{9DA0DC50-8299-4E3C-913D-333B5150B03B}</ProjectGuid>
         <ProjectTypeGuids>{8FFB629D-F513-41CE-95D2-7ECE97B6EEEC};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-        <PackageVersion>4.8.0</PackageVersion>
 
         <AssemblyName>Laerdal.Xamarin.Dfu.iOS</AssemblyName>
         <RootNamespace>Laerdal.Xamarin.Dfu.iOS</RootNamespace>
@@ -64,6 +69,11 @@
         <Summary>Xamarin Nordic Dfu iOS</Summary>
         <Title>Laerdal.Xamarin.Dfu.iOS</Title>
         <Description>Xamarin wrapper around Nordic.Dfu for iOS</Description>
+        <PackageTags>Xamarin;Nordic;DFU;iOS;Bluetooth</PackageTags>
+        <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS.git</RepositoryUrl> 
+        <RepositoryType>git</RepositoryType> 
+        <PackageVersion Condition=" '$(PackageVersion)' == '' ">4.8.0</PackageVersion>
         <PackageOutputPath Condition=" '$(PackageOutputPath)' == '' ">../$(AssemblyName).Output</PackageOutputPath>
     </PropertyGroup>
     <ItemGroup>
@@ -74,6 +84,7 @@
         <None Include="Sharpie_Generated\*.cs"/>
         <ObjcBindingApiDefinition Include="ApiDefinition.cs"/>
         <ObjcBindingCoreSource Include="Structs.cs"/>
+        <PackageReference Include="Xamarin.iOS.SwiftRuntimeSupport" Version="0.2.0" />
     </ItemGroup>
 
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets"/>
