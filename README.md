@@ -4,6 +4,7 @@ This is an Xamarin binding library for the Nordic Semiconductors iOS library for
 The native iOS Pod library is located here: https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library
 
 [![Build status](https://dev.azure.com/LaerdalMedical/Healthcare%20Responders/_apis/build/status/Github/Laerdal.Xamarin.Dfu.iOS)](https://dev.azure.com/LaerdalMedical/Healthcare%20Responders/_build/latest?definitionId=99)
+[![NuGet Badge](https://buildstats.info/nuget/Laerdal.Xamarin.Dfu.iOS)](https://www.nuget.org/packages/Laerdal.Xamarin.Dfu.iOS/)
 
 ## Folder structure
 
@@ -38,7 +39,7 @@ git clone --recurse-submodules https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iO
 
 Feel free to update the submodule reference / Pull to the latest release from Nordic.
 
-**Don't forget to update the Package version in the .csproj !!**
+**Don't forget to update the Package version in the GitVersion.yml !!**
 
 #### 2) Run **make**
 
@@ -55,4 +56,11 @@ Note :
 > A fat library is simply a library with multiple architectures. In our case it will contain x86 and arm architectures. The proper name is ‘Universal Static Library’. But we will stick with ‘fat library’ since its smaller to write and that is exactly what our resultant library would be. Fat!!! with multiple architectures in it.
 >
 > -- <cite>[@hassanahmedkhan](https://medium.com/@hassanahmedkhan/a-noobs-guide-to-creating-a-fat-library-for-ios-bafe8452b84b)</cite>
->
+
+### Clean
+
+To clean the output files and restart the process run :
+
+```bash
+make clean
+```

@@ -15,6 +15,7 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <PackOnBuild>true</PackOnBuild>
+        <OutputType>Library</OutputType>
 
         <Authors>François Raminosona, Laerdal</Authors>
         <Copyright>François Raminosona, Laerdal</Copyright>
@@ -42,7 +43,6 @@
 
     <!-- NUGET IOS BASE -->
     <PropertyGroup>
-        <OutputType>Library</OutputType>
         <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
         <DebugType>full</DebugType>
         <ConsolePause>false</ConsolePause>
