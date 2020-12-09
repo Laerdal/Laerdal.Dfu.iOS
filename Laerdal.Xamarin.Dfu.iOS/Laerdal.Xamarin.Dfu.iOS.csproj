@@ -34,10 +34,6 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageIcon>icon.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-
-        <PackageVersionNordic>4.9.0</PackageVersionNordic>
-        <PackageVersionRevision>0</PackageVersionRevision>
-        <PackageVersion>$(PackageVersionNordic).$(PackageVersionRevision)</PackageVersion>
     </PropertyGroup>
     <ItemGroup>
         <None Include="../icon.png" Pack="true" PackagePath="\"/>
@@ -77,6 +73,8 @@
         <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS.git</RepositoryUrl> 
         <RepositoryType>git</RepositoryType> 
+
+        <PackageVersion>1.0.0.0</PackageVersion>
 
         <PackageOutputPath Condition=" '$(PackageOutputPath)' == '' ">../$(AssemblyName).Output</PackageOutputPath>
     </PropertyGroup>

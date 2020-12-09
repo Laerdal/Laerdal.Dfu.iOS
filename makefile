@@ -42,7 +42,7 @@ $(sharpie_output_file): $(xbuild_output)
 
 $(output): $(xbuild_output) $(sharpie_output_file)
 	# Building nuget
-	MSBuild Laerdal.Xamarin.Dfu.iOS/*.csproj -t:Rebuild -restore:True -p:Configuration=Release -p:PackageOutputPath=../$(output)
+	MSBuild Laerdal.Xamarin.Dfu.iOS/*.csproj -t:Rebuild -restore:True -p:Configuration=Release
 
 clean:
 	rm -rf $(output)
