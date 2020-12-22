@@ -351,3 +351,7 @@ MigrationBackup/
 Laerdal.Xamarin.Dfu.iOS/Frameworks/
 
 Laerdal.Xamarin.Dfu.iOS.Output/
+Laerdal.Xamarin.Dfu.iOS.Zips/
+Laerdal.Xamarin.Dfu.iOS.Source/
+
+*.info.json

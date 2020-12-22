@@ -1,93 +1,80 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <!-- NUGET SHARED BASE -->
+﻿
+<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
     <PropertyGroup>
-        <Configuration>Release</Configuration>
-        <Configurations>Release</Configurations>
-        <Platform>AnyCPU</Platform>
-        <Platforms>AnyCPU</Platforms>
+        <TargetFrameworks>Xamarin.iOS10</TargetFrameworks>
+        <IsBindingProject>true</IsBindingProject>
 
-        <NeutralLanguage>en</NeutralLanguage>
-        <LangVersion>8</LangVersion>
-        <DebugSymbols>true</DebugSymbols>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\</OutputPath>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <PackOnBuild>true</PackOnBuild>
-        <OutputType>Library</OutputType>
+        <PackageId>Laerdal.Xamarin.Dfu.iOS</PackageId>
+        <PackageTags>Xamarin;Dfu;iOS</PackageTags>
+        <PackageDescription>Xamarin wrapper around Nordic.Dfu for iOS. Based on https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library</PackageDescription>
+        <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS</PackageProjectUrl>
+        <PackageVersion>1.0.0</PackageVersion>
+        <PackageOutputPath>../$(RootNamespace).Output</PackageOutputPath>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
 
-        <Authors>François Raminosona, Laerdal</Authors>
-        <Copyright>François Raminosona, Laerdal</Copyright>
-        <Owners>François Raminosona, Laerdal</Owners>
-
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <IncludeSource>True</IncludeSource>
-        <IncludeSymbols>True</IncludeSymbols>
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <!-- sourcelink: Include PDB in the built .nupkg -->
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Laerdal.Xamarin.Dfu.iOS</AssemblyName>
+
+        <RootNamespace>Laerdal.Xamarin.Dfu.iOS</RootNamespace>
+        <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
+
+        <Title>Laerdal.Xamarin.Dfu.iOS</Title>
+        <Summary>Xamarin Dfu Nordic iOS</Summary>
+        <Description>Xamarin wrapper around Nordic.Dfu for iOS. Based on https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library</Description>
+        <Authors>François Raminosona, Laerdal</Authors>
+        <Owners>François Raminosona, Laerdal</Owners>
+        <Copyright>François Raminosona, Laerdal</Copyright>
+        <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS.git</RepositoryUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <IncludeSource>True</IncludeSource>
+        <IncludeSymbols>True</IncludeSymbols>
+
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
         <!-- see : https://cezarypiatek.github.io/post/managing-output-in-sdk-projects/ -->
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <!-- sourcelink: Embed source files that are not tracked by the source control manager to the PDB -->
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
     </PropertyGroup>
     <ItemGroup>
         <None Include="../icon.png" Pack="true" PackagePath="\"/>
         <None Include="../LICENSE" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
-    <!-- NUGET IOS BASE -->
-    <PropertyGroup>
-        <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-        <DebugType>full</DebugType>
-        <ConsolePause>false</ConsolePause>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    </PropertyGroup>
     <ItemGroup>
-        <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Reference Include="Xamarin.iOS" />
     </ItemGroup>
     <ItemGroup>
-        <Reference Include="System"/>
-        <Reference Include="Xamarin.iOS"/>
+        <Folder Include="Resources\" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.8.0" PrivateAssets="all" />
-        <PackageReference Include="Xamarin.iOS.SwiftRuntimeSupport" Version="0.2.0" />
+        <PackageReference Include="Xamarin.iOS.SwiftRuntimeSupport" Version="0.2.0"/>
     </ItemGroup>
 
-    <!-- NUGET PROJECT SPECIFIC -->
-    <PropertyGroup>
-        <ProjectGuid>{9DA0DC50-8299-4E3C-913D-333B5150B03B}</ProjectGuid>
-        <ProjectTypeGuids>{8FFB629D-F513-41CE-95D2-7ECE97B6EEEC};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-
-        <AssemblyName>Laerdal.Xamarin.Dfu.iOS</AssemblyName>
-        <RootNamespace>Laerdal.Xamarin.Dfu.iOS</RootNamespace>
-        <PackageId>Laerdal.Xamarin.Dfu.iOS</PackageId>
-        <Summary>Xamarin Nordic Dfu iOS</Summary>
-        <Title>Laerdal.Xamarin.Dfu.iOS</Title>
-        <Description>Xamarin wrapper around Nordic.Dfu for iOS</Description>
-        <PackageTags>Xamarin;Nordic;DFU;iOS;Bluetooth</PackageTags>
-        <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS.git</RepositoryUrl> 
-        <RepositoryType>git</RepositoryType> 
-
-        <PackageVersion>1.0.0.0</PackageVersion>
-
-        <PackageOutputPath Condition=" '$(PackageOutputPath)' == '' ">../$(AssemblyName).Output</PackageOutputPath>
-    </PropertyGroup>
     <ItemGroup>
-        <NativeReference Include="Frameworks\*.framework">
+        <None Include="Frameworks\iOSDFULibrary.framework\iOSDFULibrary">
+            <Link>iOSDFULibrary.framework</Link>
+        </None>
+        <NativeReference Include="Frameworks/iOSDFULibrary.framework">
             <Kind>Framework</Kind>
             <Frameworks>Foundation</Frameworks>
         </NativeReference>
-        <None Include="Sharpie_Generated\*.cs"/>
+        <NativeReference Include="Frameworks/ZIPFoundation.framework">
+            <Kind>Framework</Kind>
+            <Frameworks>Foundation</Frameworks>
+        </NativeReference>
         <ObjcBindingApiDefinition Include="ApiDefinition.cs"/>
         <ObjcBindingCoreSource Include="Structs.cs"/>
+        <!--<Compile Include="Properties/AssemblyInfo.cs" />-->
+        <Compile Include="LinkerSafeAttribute.cs" />
     </ItemGroup>
-
-    <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets"/>
 </Project>
