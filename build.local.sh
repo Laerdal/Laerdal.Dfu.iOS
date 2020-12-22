@@ -47,6 +47,8 @@ nuget_project_folder="Laerdal.Xamarin.Dfu.iOS"
 nuget_project_name="Laerdal.Xamarin.Dfu.iOS"
 source_folder="Laerdal.Xamarin.Dfu.iOS.Source"
 source_zip_folder="Laerdal.Xamarin.Dfu.iOS.Zips"
+test_project_folder="Laerdal.Xamarin.Dfu.iOS.Test"
+test_project_name="Laerdal.Xamarin.Dfu.iOS.Test"
 
 xbuild=/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
 
@@ -70,6 +72,8 @@ sharpie_output_file=$sharpie_output_path/ApiDefinitions.cs
 source_zip_file_name="$github_short_version.zip"
 source_zip_file="$source_zip_folder/$source_zip_file_name"
 source_zip_url="http://github.com/$github_repo_owner/$github_repo/zipball/$github_tag_name"
+
+test_csproj_path="$test_project_folder/$test_project_name.csproj"
 
 # Generates variables
 echo "build_version = $build_version"
@@ -195,3 +199,11 @@ else
     echo ""
     exit 1
 fi
+
+echo ""
+echo "### TEST ###"
+echo ""
+
+rm -rf $test_project_folder/bin
+rm -rf $test_project_folder/obj
+msbuild $test_csproj_path -t:Rebuild -restore:True -p:Configuration=Release
