@@ -199,7 +199,7 @@ echo ""
 
 echo "sharpie bind -sdk iphoneos -o $sharpie_output_path -n $nuget_project_name -f $nuget_frameworks_folder/iOSDFULibrary.framework"
 echo ""
-sharpie bind -sdk iphoneos -o $sharpie_output_path -n $nuget_project_name -f $nuget_frameworks_folder/iOSDFULibrary.framework
+#sharpie bind -sdk iphoneos -o $sharpie_output_path -n $nuget_project_name -f $nuget_frameworks_folder/iOSDFULibrary.framework
 
 echo ""
 echo "### MSBUILD ###"
