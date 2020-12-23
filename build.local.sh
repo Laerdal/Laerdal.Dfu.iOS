@@ -15,7 +15,6 @@ if [ ! -f "$github_info_file" ]; then
     curl -s $github_info_file_url > $github_info_file
 fi
 
-
 # VARIABLES
 usage(){
     echo "### Wrong parameters ###"
@@ -42,6 +41,17 @@ echo ""
 echo "### INFORMATION ###"
 echo ""
 
+# Set version
+github_tag_name=`cat $github_info_file | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//'`
+github_short_version=`echo "$github_tag_name" | sed 's/.LTS//'`
+build_version=$github_short_version.$build_revision
+echo "##vso[build.updatebuildnumber]$build_version"
+if [ -z "$github_short_version" ]; then
+    echo "Failed : Could not read Version"
+    cat $github_info_file
+    exit 1
+fi
+
 # Static configuration
 nuget_project_folder="Laerdal.Xamarin.Dfu.iOS"
 nuget_project_name="Laerdal.Xamarin.Dfu.iOS"
@@ -53,12 +63,6 @@ test_project_name="Laerdal.Xamarin.Dfu.iOS.Test"
 xbuild=/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
 
 # Calculated configuration
-
-github_tag_name=`cat $github_info_file | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//'`
-github_short_version=`echo "$github_tag_name" | sed 's/.LTS//'`
-build_version=$github_short_version.$build_revision
-echo "##vso[build.updatebuildnumber]$build_version"
-
 nuget_output_folder="$nuget_project_name.Output"
 nuget_csproj_path="$nuget_project_folder/$nuget_project_name.csproj"
 nuget_filename="$nuget_project_name.$build_version.nupkg"
@@ -129,6 +133,15 @@ fi
 echo "Unzipped $source_zip_file into $source_folder"
 
 echo ""
+echo "### APPLY MAGIC REGEX ###"
+echo ""
+
+for i in `find ./Laerdal.Xamarin.Dfu.iOS.Source/ -ipath "*iOSDFULibrary/Classes/*" -iname "*.swift" -type f`; do
+    echo "- $i"
+    sed -i.old -E 's/@objc (public|internal|open) (class|enum|protocol) ([A-Za-z0-9]*)/@objc(\3) \1 \2 \3/g' $i
+done
+
+echo ""
 echo "### XBUILD SOURCE ###"
 echo ""
 
@@ -175,11 +188,18 @@ rm -rf $nuget_frameworks_folder/iOSDFULibrary.framework/iOSDFULibrary
 lipo -create -output $nuget_frameworks_folder/iOSDFULibrary.framework/iOSDFULibrary $iOSDFULibrary_iphoneos_framework/iOSDFULibrary $iOSDFULibrary_iphonesimulator_framework/iOSDFULibrary
 lipo -info $nuget_frameworks_folder/iOSDFULibrary.framework/iOSDFULibrary
 
+# TODO : Create Laerdal.Xamarin.ZipFoundation.iOS
+#rm -rf $nuget_frameworks_folder/ZIPFoundation.framework/ZIPFoundation
+#lipo -create -output $nuget_frameworks_folder/ZIPFoundation.framework/ZIPFoundation $ZIPFoundation_iphoneos_framework/ZIPFoundation $ZIPFoundation_iphonesimulator_framework/ZIPFoundation
+lipo -info $nuget_frameworks_folder/ZIPFoundation.framework/ZIPFoundation
+
 echo ""
 echo "### SHARPIE ###"
 echo ""
 
-sharpie bind -sdk iphoneos -o $sharpie_output_path -scope $nuget_frameworks_folder/iOSDFULibrary.framework/Headers/ -f $nuget_frameworks_folder/iOSDFULibrary.framework
+echo "sharpie bind -sdk iphoneos -o $sharpie_output_path -n $nuget_project_name -f $nuget_frameworks_folder/iOSDFULibrary.framework"
+echo ""
+sharpie bind -sdk iphoneos -o $sharpie_output_path -n $nuget_project_name -f $nuget_frameworks_folder/iOSDFULibrary.framework
 
 echo ""
 echo "### MSBUILD ###"
@@ -199,11 +219,3 @@ else
     echo ""
     exit 1
 fi
-
-echo ""
-echo "### TEST ###"
-echo ""
-
-rm -rf $test_project_folder/bin
-rm -rf $test_project_folder/obj
-msbuild $test_csproj_path -t:Rebuild -restore:True -p:Configuration=Release

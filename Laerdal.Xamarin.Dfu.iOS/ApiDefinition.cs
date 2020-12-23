@@ -7,8 +7,7 @@ using ObjCRuntime;
 namespace Laerdal.Xamarin.Dfu.iOS
 {
 	// @interface DFUFirmware : NSObject
-	[BaseType (typeof(NSObject))]
-	[DisableDefaultCtor]
+	[BaseType (typeof(NSObject)), DisableDefaultCtor]
 	interface DFUFirmware
 	{
 		// @property (readonly, copy, nonatomic) NSString * _Nullable fileName;
@@ -66,8 +65,7 @@ namespace Laerdal.Xamarin.Dfu.iOS
 	}
 
 	// @interface DFUFirmwareSize : NSObject
-	[BaseType (typeof(NSObject))]
-	[DisableDefaultCtor]
+	[BaseType (typeof(NSObject)), DisableDefaultCtor]
 	interface DFUFirmwareSize
 	{
 		// @property (readonly, nonatomic) uint32_t softdevice;
@@ -84,8 +82,7 @@ namespace Laerdal.Xamarin.Dfu.iOS
 	}
 
 	// @protocol DFUPeripheralSelectorDelegate
-	[Protocol, Model]
-	[BaseType (typeof(NSObject))]
+	[Protocol, Model, BaseType (typeof(NSObject))]
 	interface DFUPeripheralSelectorDelegate
 	{
 		// @required -(BOOL)select:(CBPeripheral * _Nonnull)peripheral advertisementData:(NSDictionary<NSString *,id> * _Nonnull)advertisementData RSSI:(NSNumber * _Nonnull)RSSI hint:(NSString * _Nullable)name __attribute__((warn_unused_result));
@@ -100,12 +97,9 @@ namespace Laerdal.Xamarin.Dfu.iOS
 		CBUUID[] FilterByHint (CBUUID dfuServiceUUID);
 	}
 
-	[Protocol]
-	interface IDFUPeripheralSelectorDelegate {}
-
 	// @interface DFUPeripheralSelector : NSObject <DFUPeripheralSelectorDelegate>
 	[BaseType (typeof(NSObject))]
-	interface DFUPeripheralSelector : IDFUPeripheralSelectorDelegate
+	interface DFUPeripheralSelector
 	{
 		// -(BOOL)select:(CBPeripheral * _Nonnull)peripheral advertisementData:(NSDictionary<NSString *,id> * _Nonnull)advertisementData RSSI:(NSNumber * _Nonnull)RSSI hint:(NSString * _Nullable)name __attribute__((warn_unused_result));
 		[Export ("select:advertisementData:RSSI:hint:")]
@@ -118,8 +112,7 @@ namespace Laerdal.Xamarin.Dfu.iOS
 	}
 
 	// @protocol DFUProgressDelegate
-	[Protocol, Model]
-	[BaseType (typeof(NSObject))]
+	[Protocol, Model, BaseType (typeof(NSObject))]
 	interface DFUProgressDelegate
 	{
 		// @required -(void)dfuProgressDidChangeFor:(NSInteger)part outOf:(NSInteger)totalParts to:(NSInteger)progress currentSpeedBytesPerSecond:(double)currentSpeedBytesPerSecond avgSpeedBytesPerSecond:(double)avgSpeedBytesPerSecond;
@@ -129,8 +122,7 @@ namespace Laerdal.Xamarin.Dfu.iOS
 	}
 
 	// @interface DFUServiceController : NSObject
-	[BaseType (typeof(NSObject))]
-	[DisableDefaultCtor]
+	[BaseType (typeof(NSObject)), DisableDefaultCtor]
 	interface DFUServiceController
 	{
 		// -(void)pause;
@@ -159,8 +151,7 @@ namespace Laerdal.Xamarin.Dfu.iOS
 	}
 
 	// @protocol DFUServiceDelegate
-	[Protocol, Model]
-	[BaseType (typeof(NSObject))]
+	[Protocol, Model, BaseType (typeof(NSObject))]
 	interface DFUServiceDelegate
 	{
 		// @required -(void)dfuStateDidChangeTo:(enum DFUState)state;
@@ -175,8 +166,7 @@ namespace Laerdal.Xamarin.Dfu.iOS
 	}
 
 	// @interface DFUServiceInitiator : NSObject
-	[BaseType (typeof(NSObject))]
-	[DisableDefaultCtor]
+	[BaseType (typeof(NSObject)), DisableDefaultCtor]
 	interface DFUServiceInitiator
 	{
 		[Wrap ("WeakDelegate")]
@@ -273,8 +263,7 @@ namespace Laerdal.Xamarin.Dfu.iOS
 	}
 
 	// @interface DFUUuid : NSObject
-	[BaseType (typeof(NSObject))]
-	[DisableDefaultCtor]
+	[BaseType (typeof(NSObject)), DisableDefaultCtor]
 	interface DFUUuid
 	{
 		// @property (readonly, nonatomic, strong) CBUUID * _Nonnull uuid;
@@ -345,8 +334,7 @@ namespace Laerdal.Xamarin.Dfu.iOS
 	}
 
 	// @protocol LoggerDelegate
-	[Protocol, Model]
-	[BaseType (typeof(NSObject))]
+	[Protocol, Model, BaseType (typeof(NSObject))]
 	interface LoggerDelegate
 	{
 		// @required -(void)logWith:(enum LogLevel)level message:(NSString * _Nonnull)message;

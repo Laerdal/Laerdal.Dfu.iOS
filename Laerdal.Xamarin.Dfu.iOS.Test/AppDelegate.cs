@@ -1,4 +1,8 @@
-﻿using Foundation;
+﻿using System;
+using System.Diagnostics;
+using CoreBluetooth;
+using CoreFoundation;
+using Foundation;
 using UIKit;
 
 namespace Laerdal.Xamarin.Dfu.iOS.Test
@@ -20,8 +24,9 @@ namespace Laerdal.Xamarin.Dfu.iOS.Test
 
             // make the window visible
             Window.MakeKeyAndVisible();
-
-            
+            var logger = new DfuLogger();
+            var fw = new DFUUuidHelper();
+            Debug.WriteLine(fw.LegacyDFUVersion);
             return true;
         }
 
@@ -54,6 +59,29 @@ namespace Laerdal.Xamarin.Dfu.iOS.Test
         public override void WillTerminate(UIApplication application)
         {
             // Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
+        }
+    }
+    public class DfuLogger : LoggerDelegate
+    {
+        public override void Message(LogLevel level, string message)
+        {
+            switch (level)
+            {
+                case LogLevel.Debug:
+                    break;
+                case LogLevel.Verbose:
+                    break;
+                case LogLevel.Info:
+                    break;
+                case LogLevel.Application:
+                    break;
+                case LogLevel.Warning:
+                    break;
+                case LogLevel.Error:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
