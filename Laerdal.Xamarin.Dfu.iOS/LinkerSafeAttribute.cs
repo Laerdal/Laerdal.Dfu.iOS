@@ -1,4 +1,2 @@
-class LinkerSafeAttribute : System.Attribute
-{
-    public LinkerSafeAttribute() : base() {}
-}
+[assembly:LinkerSafe]
+class LinkerSafeAttribute : System.Attribute {}

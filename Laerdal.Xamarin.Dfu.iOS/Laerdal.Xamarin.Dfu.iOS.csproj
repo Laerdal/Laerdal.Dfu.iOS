@@ -1,8 +1,21 @@
-﻿
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+
+    <!-- IOS -->
     <PropertyGroup>
         <TargetFrameworks>Xamarin.iOS10</TargetFrameworks>
         <IsBindingProject>true</IsBindingProject>
+
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        <Optimize>true</Optimize>
+        <OutputPath>bin</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <MtouchExtraArgs>-v -v -v -v --optimize=-remove-dynamic-registrar</MtouchExtraArgs>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <RootNamespace>Laerdal.Xamarin.Dfu.iOS</RootNamespace>
 
         <PackageId>Laerdal.Xamarin.Dfu.iOS</PackageId>
         <PackageTags>Xamarin;Dfu;iOS</PackageTags>
@@ -21,15 +34,6 @@
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyName>Laerdal.Xamarin.Dfu.iOS</AssemblyName>
 
-        <RootNamespace>Laerdal.Xamarin.Dfu.iOS</RootNamespace>
-        <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <MtouchExtraArgs>-v -v -v -v --optimize:remove-dynamic-registrar</MtouchExtraArgs>
-        <DebugType>full</DebugType>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <Optimize>true</Optimize>
-
         <Title>Laerdal.Xamarin.Dfu.iOS</Title>
         <Summary>Xamarin Dfu Nordic iOS</Summary>
         <Description>Xamarin wrapper around Nordic.Dfu for iOS. Based on https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library</Description>
@@ -43,38 +47,40 @@
         <IncludeSource>True</IncludeSource>
         <IncludeSymbols>True</IncludeSymbols>
 
-        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
         <!-- see : https://cezarypiatek.github.io/post/managing-output-in-sdk-projects/ -->
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <!-- sourcelink: Embed source files that are not tracked by the source control manager to the PDB -->
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <!-- warning MSB9004: ManifestResourceWithNoCulture item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='false', Type='Resx', and optional LogicalName. -->
+        <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB9004</MSBuildWarningsAsMessages>
     </PropertyGroup>
     <ItemGroup>
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <!-- <Compile Include="LinkerSafeAttribute.cs" /> -->
         <None Include="../icon.png" Pack="true" PackagePath="\"/>
         <None Include="../LICENSE" Pack="true" PackagePath="\"/>
     </ItemGroup>
-
     <ItemGroup>
         <Reference Include="Xamarin.iOS" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Resources\" />
+        <ObjcBindingApiDefinition Include="ApiDefinition.cs"/>
+        <ObjcBindingCoreSource Include="Structs.cs"/>
     </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Xamarin.iOS.SwiftRuntimeSupport" Version="0.2.0"/>
+    </ItemGroup>
+
+    <!-- FRAMEWORKS -->
     <ItemGroup>
         <NativeReference Include="Frameworks/iOSDFULibrary.framework">
             <Kind>Framework</Kind>
             <Frameworks>Foundation</Frameworks>
         </NativeReference>
+
         <NativeReference Include="Frameworks/ZIPFoundation.framework">
             <Kind>Framework</Kind>
             <Frameworks>Foundation</Frameworks>
         </NativeReference>
-        <ObjcBindingApiDefinition Include="ApiDefinition.cs"/>
-        <ObjcBindingCoreSource Include="Structs.cs"/>
-        <!--<Compile Include="Properties/AssemblyInfo.cs" />-->
-        <Compile Include="LinkerSafeAttribute.cs" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Xamarin.iOS.SwiftRuntimeSupport" Version="0.2.0"/>
     </ItemGroup>
 </Project>
