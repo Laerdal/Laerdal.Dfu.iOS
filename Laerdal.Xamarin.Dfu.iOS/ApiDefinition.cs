@@ -353,9 +353,9 @@ namespace Laerdal.Xamarin.Dfu.iOS
 	{
 		// warning CS0114: 'LegacyDFUServiceInitiator.StartWithTargetWithIdentifier(NSUuid)' hides inherited member 'DFUServiceInitiator.StartWithTargetWithIdentifier(NSUuid)'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
 		// -(DFUServiceController * _Nullable)startWithTargetWithIdentifier:(NSUUID * _Nonnull)uuid __attribute__((warn_unused_result("")));
-		// [Export ("startWithTargetWithIdentifier:")]
-		// [return: NullAllowed]
-		// DFUServiceController StartWithTargetWithIdentifier (NSUuid uuid);
+		[Export ("startWithTargetWithIdentifier:")]
+		[return: NullAllowed]
+		DFUServiceController StartWithTargetWithIdentifier (NSUuid uuid);
 
 		// -(instancetype _Nonnull)initWithCentralManager:(CBCentralManager * _Nonnull)centralManager target:(CBPeripheral * _Nonnull)target __attribute__((objc_designated_initializer)) __attribute__((deprecated("")));
 		[Export ("initWithCentralManager:target:")]
@@ -384,9 +384,9 @@ namespace Laerdal.Xamarin.Dfu.iOS
 	{
 		// warning CS0114: 'SecureDFUServiceInitiator.StartWithTargetWithIdentifier(NSUuid)' hides inherited member 'DFUServiceInitiator.StartWithTargetWithIdentifier(NSUuid)'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
 		// -(DFUServiceController * _Nullable)startWithTargetWithIdentifier:(NSUUID * _Nonnull)uuid __attribute__((warn_unused_result("")));
-		//[Export ("startWithTargetWithIdentifier:")]
-		//[return: NullAllowed]
-		//DFUServiceController StartWithTargetWithIdentifier (NSUuid uuid);
+		[Export ("startWithTargetWithIdentifier:")]
+		[return: NullAllowed]
+		DFUServiceController StartWithTargetWithIdentifier (NSUuid uuid);
 
 		// -(instancetype _Nonnull)initWithCentralManager:(CBCentralManager * _Nonnull)centralManager target:(CBPeripheral * _Nonnull)target __attribute__((objc_designated_initializer)) __attribute__((deprecated("")));
 		[Export ("initWithCentralManager:target:")]
