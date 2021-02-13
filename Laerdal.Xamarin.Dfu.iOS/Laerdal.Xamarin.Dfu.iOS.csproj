@@ -2,17 +2,14 @@
 
     <!-- IOS -->
     <PropertyGroup>
+        <!--suppress MsbuildTargetFrameworkTagInspection -->
         <TargetFrameworks>Xamarin.iOS10</TargetFrameworks>
         <IsBindingProject>true</IsBindingProject>
 
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
         <OutputPath>bin</OutputPath>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
         <MtouchExtraArgs>-v -v -v -v --optimize=-remove-dynamic-registrar</MtouchExtraArgs>
-        <DebugSymbols>true</DebugSymbols>
-        <Optimize>false</Optimize>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -48,12 +45,6 @@
         <IncludeSource>True</IncludeSource>
         <IncludeSymbols>True</IncludeSymbols>
 
-        <!-- WARN : SecureDFUServiceInitiator.g.cs: [CS0114] 'SecureDFUServiceInitiator.StartWithTargetWithIdentifier(NSUuid)' hides inherited member 
-        'DFUServiceInitiator.StartWithTargetWithIdentifier(NSUuid)'. To make the current member override that implementation, add the override keyword. 
-        Otherwise add the new keyword. 
-        Can be ignored. -->
-        <NoWarn>CS0114</NoWarn>
-
         <!-- see : https://cezarypiatek.github.io/post/managing-output-in-sdk-projects/ -->
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <!-- sourcelink: Embed source files that are not tracked by the source control manager to the PDB -->
@@ -62,9 +53,7 @@
         <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB9004</MSBuildWarningsAsMessages>
     </PropertyGroup>
     <ItemGroup>
-        <!-- <Compile Include="Properties\AssemblyInfo.cs" />-->
-        <!-- Marking library as LinkerSafe : https://docs.microsoft.com/en-us/xamarin/ios/deploy-test/linker?tabs=macos#marking-your-assembly-as-linker-ready -->
-        <Compile Include="LinkerSafeAttribute.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
         <None Include="../icon.png" Pack="true" PackagePath="\"/>
         <None Include="../LICENSE" Pack="true" PackagePath="\"/>
     </ItemGroup>
@@ -78,17 +67,29 @@
     <ItemGroup>
         <PackageReference Include="Xamarin.iOS.SwiftRuntimeSupport" Version="0.2.0"/>
     </ItemGroup>
+    
+    <!-- Frameworks\iOSDFULibrary.framework -->
+    <ItemGroup Condition="Exists('Frameworks\iOSDFULibrary.framework')">
+        <None Include="Frameworks\iOSDFULibrary.framework\iOSDFULibrary">
+            <Link>Frameworks\iOSDFULibrary.framework</Link>
+        </None>
 
-    <!-- FRAMEWORKS -->
-    <ItemGroup>
-        <NativeReference Include="Frameworks/iOSDFULibrary.framework/iOSDFULibrary">
-            <Kind>Framework</Kind>
-            <Frameworks>Foundation</Frameworks>
-        </NativeReference>
-
-        <NativeReference Include="Frameworks/ZIPFoundation.framework/iOSDFULibrary">
+        <NativeReference Include="Frameworks\iOSDFULibrary.framework">
             <Kind>Framework</Kind>
             <Frameworks>Foundation</Frameworks>
         </NativeReference>
     </ItemGroup>
+    
+    <!-- Frameworks\ZIPFoundation.framework -->
+    <ItemGroup Condition="Exists('Frameworks\ZIPFoundation.framework')">
+        <None Include="Frameworks\ZIPFoundation.framework\ZIPFoundation">
+            <Link>Frameworks\ZIPFoundation.framework</Link>
+        </None>
+
+        <NativeReference Include="Frameworks\ZIPFoundation.framework">
+            <Kind>Framework</Kind>
+            <Frameworks>Foundation</Frameworks>
+        </NativeReference>
+    </ItemGroup>
+    
 </Project>
