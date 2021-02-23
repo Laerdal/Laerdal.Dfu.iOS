@@ -66,8 +66,10 @@ make clean
 ### Known issues
 
 > [**Invalid Swift support when submitted to the Apple AppStore**](https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS/issues/3)
+> 
 > Fix : https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS/issues/3#issuecomment-783298581
 
 > [**ObjCRuntime.RuntimeException: Can't register the class XXX when the dynamic registrar has been linked away"**](https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS/issues/1)
+> 
 > Fix : You might need to add "--optimize=-remove-dynamic-registrar" to your apps mtouch args.
 
