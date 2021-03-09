@@ -1,7 +1,7 @@
 ﻿using System;
 using ObjCRuntime;
 
-namespace Laerdal.Xamarin.Dfu.iOS
+namespace Laerdal.Dfu.iOS
 {
 	[Native]
 	public enum DFUError : long
