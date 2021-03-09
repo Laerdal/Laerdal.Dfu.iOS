@@ -1,4 +1,4 @@
-<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
 
     <!-- IOS -->
     <PropertyGroup>
@@ -13,12 +13,12 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <RootNamespace>Laerdal.Xamarin.Dfu.iOS</RootNamespace>
+        <RootNamespace>Laerdal.Dfu.iOS</RootNamespace>
 
-        <PackageId>Laerdal.Xamarin.Dfu.iOS</PackageId>
+        <PackageId>Laerdal.Dfu.iOS</PackageId>
         <PackageTags>Xamarin;Dfu;iOS</PackageTags>
         <PackageDescription>Xamarin wrapper around Nordic.Dfu for iOS. Based on https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library</PackageDescription>
-        <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Dfu.iOS</PackageProjectUrl>
         <PackageVersion>1.0.0</PackageVersion>
         <PackageOutputPath>../$(RootNamespace).Output</PackageOutputPath>
         <PackageIcon>icon.png</PackageIcon>
@@ -30,15 +30,15 @@
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <AssemblyName>Laerdal.Xamarin.Dfu.iOS</AssemblyName>
+        <AssemblyName>Laerdal.Dfu.iOS</AssemblyName>
 
-        <Title>Laerdal.Xamarin.Dfu.iOS</Title>
+        <Title>Laerdal.Dfu.iOS</Title>
         <Summary>Xamarin Dfu Nordic iOS</Summary>
         <Description>Xamarin wrapper around Nordic.Dfu for iOS. Based on https://github.com/NordicSemiconductor/IOS-Pods-DFU-Library</Description>
         <Authors>François Raminosona, Laerdal</Authors>
         <Owners>François Raminosona, Laerdal</Owners>
         <Copyright>François Raminosona, Laerdal</Copyright>
-        <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.Dfu.iOS.git</RepositoryUrl>
+        <RepositoryUrl>https://github.com/Laerdal/Laerdal.Dfu.iOS.git</RepositoryUrl>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <RepositoryType>git</RepositoryType>
 
