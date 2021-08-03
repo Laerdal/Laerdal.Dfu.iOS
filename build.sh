@@ -41,7 +41,7 @@ done
 # find the latest ID here : https://api.github.com/repos/NordicSemiconductor/IOS-Pods-DFU-Library/releases/latest
 github_repo_owner=NordicSemiconductor
 github_repo=IOS-Pods-DFU-Library
-github_release_id=32090814
+github_release_id=47049447
 github_info_file="$github_repo_owner.$github_repo.$github_release_id.info.json"
 
 if [ ! -f "$github_info_file" ]; then
@@ -189,12 +189,12 @@ echo "xbuild_parameters = $xbuild_parameters -sdk iphoneos build"
 echo
 
 $xbuild $xbuild_parameters -sdk iphoneos build
-$xbuild $xbuild_parameters -sdk iphonesimulator build
+# $xbuild $xbuild_parameters -sdk iphonesimulator build
 
 iOSDFULibrary_iphoneos_framework=`find ./$source_folder/ -ipath "*iphoneos*" -iname "iOSDFULibrary.framework" | head -n 1`
 ZIPFoundation_iphoneos_framework=`find ./$source_folder/ -ipath "*iphoneos*" -iname "ZIPFoundation.framework" | head -n 1`
-iOSDFULibrary_iphonesimulator_framework=`find ./$source_folder/ -ipath "*iphonesimulator*" -iname "iOSDFULibrary.framework" | head -n 1`
-ZIPFoundation_iphonesimulator_framework=`find ./$source_folder/ -ipath "*iphonesimulator*" -iname "ZIPFoundation.framework" | head -n 1`
+# iOSDFULibrary_iphonesimulator_framework=`find ./$source_folder/ -ipath "*iphonesimulator*" -iname "iOSDFULibrary.framework" | head -n 1`
+# ZIPFoundation_iphonesimulator_framework=`find ./$source_folder/ -ipath "*iphonesimulator*" -iname "ZIPFoundation.framework" | head -n 1`
 
 if [ ! -d "$iOSDFULibrary_iphoneos_framework" ]; then
     echo "Failed : $iOSDFULibrary_iphoneos_framework does not exist"
@@ -204,20 +204,20 @@ if [ ! -d "$ZIPFoundation_iphoneos_framework" ]; then
     echo "Failed : $ZIPFoundation_iphoneos_framework does not exist"
     exit 1
 fi
-if [ ! -d "$iOSDFULibrary_iphonesimulator_framework" ]; then
-    echo "Failed : $iOSDFULibrary_iphonesimulator_framework does not exist"
-    exit 1
-fi
-if [ ! -d "$ZIPFoundation_iphonesimulator_framework" ]; then
-    echo "Failed : $ZIPFoundation_iphonesimulator_framework does not exist"
-    exit 1
-fi
+# if [ ! -d "$iOSDFULibrary_iphonesimulator_framework" ]; then
+#     echo "Failed : $iOSDFULibrary_iphonesimulator_framework does not exist"
+#     exit 1
+# fi
+# if [ ! -d "$ZIPFoundation_iphonesimulator_framework" ]; then
+#     echo "Failed : $ZIPFoundation_iphonesimulator_framework does not exist"
+#     exit 1
+# fi
 
 echo "Created :"
 echo "  - $iOSDFULibrary_iphoneos_framework"
 echo "  - $ZIPFoundation_iphoneos_framework"
-echo "  - $iOSDFULibrary_iphonesimulator_framework"
-echo "  - $ZIPFoundation_iphonesimulator_framework"
+# echo "  - $iOSDFULibrary_iphonesimulator_framework"
+# echo "  - $ZIPFoundation_iphonesimulator_framework"
 
 echo
 echo "### LIPO / CREATE FAT LIBRARY ###"
@@ -228,7 +228,7 @@ cp -a $(dirname $iOSDFULibrary_iphoneos_framework)/. $nuget_frameworks_folder
 cp -a $(dirname $ZIPFoundation_iphoneos_framework)/. $nuget_frameworks_folder
 
 rm -rf $nuget_frameworks_folder/iOSDFULibrary.framework/iOSDFULibrary
-lipo -create -output $nuget_frameworks_folder/iOSDFULibrary.framework/iOSDFULibrary $iOSDFULibrary_iphoneos_framework/iOSDFULibrary $iOSDFULibrary_iphonesimulator_framework/iOSDFULibrary
+lipo -create -output $nuget_frameworks_folder/iOSDFULibrary.framework/iOSDFULibrary $iOSDFULibrary_iphoneos_framework/iOSDFULibrary
 lipo -info $nuget_frameworks_folder/iOSDFULibrary.framework/iOSDFULibrary
 
 # TODO : Create Laerdal.Xamarin.ZipFoundation.iOS
